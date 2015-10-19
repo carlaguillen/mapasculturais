@@ -488,9 +488,6 @@ MapasCulturais.Editables = {
                             }else if(MapasCulturais.request.controller === 'registration' && p === 'owner'){
                                 firstShown = true; // don't show editable
                                 $field = $('#registration-agent-owner').parent().find('.registration-label span');
-                            }else if(MapasCulturais.request.controller === 'agent' && p === 'location'){
-                                firstShown = true; // don't show editable
-                                $field = $('.js-editable[data-edit="publicLocation"]');
                             }else{
                                 $field = $('.js-editable[data-edit="' + p + '"]');
                             }
@@ -522,6 +519,8 @@ MapasCulturais.Editables = {
                         }
 
                     }else{
+
+                        $('body').trigger('entity-saved', response);
 
                         $('.js-geo-division-address').each(function(){
                             var r = response[$(this).data('metakey')];
