@@ -442,12 +442,12 @@ class Registration extends \MapasCulturais\Entity
     protected function _getAgentsData(){
         $app = App::i();
 
-        $propertiesToExport = $app->config['registration.propertiesToExport'];
-
         $exportData = [];
 
         foreach($this->_getAgentsWithDefinitions() as $agent){
+            $propertiesToExport = $agent->definition->getPropertiesToExport();
             $exportData[$agent->definition->agentRelationGroupName] = [];
+
 
             foreach($propertiesToExport as $p){
                 $exportData[$agent->definition->agentRelationGroupName][$p] = $agent->$p;
@@ -509,7 +509,7 @@ class Registration extends \MapasCulturais\Entity
         if($user->is('guest')){
             return false;
         }
-        
+
         if($user->is('superAdmin')){
             return true;
         }
