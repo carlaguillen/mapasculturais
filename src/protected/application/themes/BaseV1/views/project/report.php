@@ -25,9 +25,7 @@ function echoStatus($registration){
             break;
     }
 }
-
-$_properties = $app->config['registration.propertiesToExport'];
-
+die(var_dump($entity->getUsedAgentRelations() ));
 ?>
 <style>
     tbody td, table th{
@@ -44,10 +42,13 @@ $_properties = $app->config['registration.propertiesToExport'];
                 <th><?php echo $entity->registrationCategTitle ?></th>
             <?php endif; ?>
             <th>Arquivos</th>
-            <?php foreach($entity->getUsedAgentRelations() as $def): ?>
+            <?php 
+            foreach($entity->getUsedAgentRelations() as $def): 
+                $_properties = $def->getPropertiesToExport();
+                ?>
                 <th><?php echo $def->label; ?></th>
                 <?php foreach($_properties as $prop): if($prop === 'name') continue; ?>
-                    <th><?php echo $def->label; ?> - <?php echo Agent::getPropertyLabel($prop); ?></th>
+                    <th><?php echo $def->label; ?> - <?php echo "($prop) " . Agent::getPropertyLabel($prop); ?></th>
                 <?php endforeach; ?>
             <?php endforeach; ?>
         </tr>
@@ -72,17 +73,37 @@ $_properties = $app->config['registration.propertiesToExport'];
                 foreach($r->_getDefinitionsWithAgents() as $def):
                     if($def->use == 'dontUse') continue;
                     $agent = $def->agent;
+                    
+                    $_properties = $def->getPropertiesToExport();
                 ?>
 
                     <?php if($agent): ?>
                         <td><a href="<?php echo $agent->singleUrl; ?>" target="_blank"><?php echo $r->agentsData[$def->agentRelationGroupName]['name'];?></a></td>
 
                         <?php
+                        
                         foreach($_properties as $prop):
                             if($prop === 'name') continue;
                         $val = isset($r->agentsData[$def->agentRelationGroupName][$prop]) ? $r->agentsData[$def->agentRelationGroupName][$prop] : '';
                         ?>
-                        <td><?php echo $prop === 'location' ? "{$val['latitude']},{$val['longitude']}" : $val ?></td>
+                        <?php $app->log->debug(print_r([$prop,$val],true)) ?>
+                        <td><?php 
+                            switch ($prop){
+                                case 'type':
+                                    echo $val['name'];
+                                    break;
+                                case 'location':
+                                    echo "{$val['latitude']},{$val['longitude']}";
+                                    break;
+                                case 'createTimestamp':
+                                    $dt = new \DateTime($val['date']);
+                                    echo $dt->format('d/m/y') ;
+                                    break;
+                                default:
+                                    echo $val;
+                                    
+                            }
+                         ?></td>
 
                         <?php endforeach; ?>
 

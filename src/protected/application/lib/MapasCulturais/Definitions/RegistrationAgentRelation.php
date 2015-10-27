@@ -50,4 +50,15 @@ class RegistrationAgentRelation extends \MapasCulturais\Definition{
     function getOptionLabel($key){
         return \MapasCulturais\App::i()->config['registration.agentRelationsOptions'][$key];
     }
+    
+    function getPropertiesToExport(){
+        $app = \MapasCulturais\App::i();
+        if(isset($app->config['registration.propertiesToExport.' . $this->agentRelationGroupName])){
+            $properties = $app->config['registration.propertiesToExport.' . $this->agentRelationGroupName];
+        }else{
+            $properties = $app->config['registration.propertiesToExport'];
+        }
+        
+        return $properties;
+    }
 }
