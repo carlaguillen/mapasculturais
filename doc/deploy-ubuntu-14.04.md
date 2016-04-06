@@ -12,7 +12,7 @@ Primeiro instalamos os pacotes via apt
 @ apt-get install git curl nodejs npm ruby
 
 # postgresql e postgis
-@ apt-get install postgresql postgresql-contrib postgis postgresql-9.3-postgis-2.1 postgresql-9.3-postgis-2.1-scripts
+@ apt-get install postgresql postgresql-contrib postgis
 
 # php, php-fpm e extensões do php utiliazdas no sistema
 @ apt-get install php5 php5-gd php5-cli php5-json php5-curl php5-pgsql php-apc php5-fpm
@@ -164,6 +164,11 @@ server {
 Crie o linkpara habilitar o virtual host
 ```BASH
 ln -s /etc/nginx/sites-available/mapas.conf /etc/nginx/sites-enabled/mapas.conf
+```
+
+Delete o link para a configuração default do nginx
+```BASH
+rm /etc/nginx/sites-enabled/
 ```
 
 #### Criando pool do php-fpm
