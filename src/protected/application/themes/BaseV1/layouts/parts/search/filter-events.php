@@ -5,7 +5,7 @@
         <a class="icon icon-show-advanced-search" ng-click="toggleAdvancedFilters()"></a>
     </header>
     <div ng-show="!collapsedFilters && !showInfobox()">
-        <form class="form-palavra-chave filter searcj-filter--keyword">
+        <form class="form-palavra-chave filter search-filter--keyword">
             <label for="palavra-chave-evento">Palavra-chave</label>
             <input ng-model="data.event.keyword" class="search-field" type="text" name="palavra-chave-evento" placeholder="Buscar eventos" />
         </form>
@@ -19,7 +19,7 @@
         <div class="filter search-filter--linguagem">
             <label>Linguagem</label>
             <div class="dropdown">
-                <div class="placeholder">Selecione as linguagens</div>
+                <div class="placeholder">Linguagens</div>
                 <div class="submenu-dropdown">
                     <ul class="filter-list select">
                         <li ng-repeat="linguagem in linguagens" ng-class="{'selected':isSelected(data.event.linguagens, linguagem.id)}" ng-click="toggleSelection(data.event.linguagens, linguagem.id)">
@@ -33,12 +33,42 @@
         <div class="filter search-filter--classificacao">
             <span class="label">Classificação</span>
             <div id="classificacao" class="dropdown">
-                <div class="placeholder">Selecione a classificação</div>
+                <div class="placeholder">Classificação</div>
                 <div class="submenu-dropdown">
                     <ul class="filter-list select">
                         <li ng-repeat="classificacao in classificacoes" ng-class="{'selected':isSelected(data.event.classificacaoEtaria, classificacao.id)}" ng-click="toggleSelection(data.event.classificacaoEtaria, classificacao.id)">
                             <span>{{classificacao.name}}</span>
                         </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--.filter-->
+        <div class="filter search-filter--estado">
+            <span class="label">Estado</span>
+            <div id="estado" class="dropdown">
+                <div class="placeholder">Estado</div>
+                <div class="submenu-dropdown">
+                    <ul class="filter-list select">
+                        <li ng-class="{'selected':true}"><span>SP</span></li>
+                        <li ng-class="{'selected':false}"><span>AB</span></li>
+                        <li ng-class="{'selected':false}"><span>CD</span></li>
+                        <li ng-class="{'selected':false}"><span>EF</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--.filter-->
+        <div class="filter search-filter--municipio">
+            <span class="label">Município</span>
+            <div id="estado" class="dropdown">
+                <div class="placeholder">Município</div>
+                <div class="submenu-dropdown">
+                    <ul class="filter-list select">
+                        <li ng-class="{'selected':true}"><span>São Paulo</span></li>
+                        <li ng-class="{'selected':false}"><span>Nome Bem Grande do Espírito Santo do Sul</span></li>
+                        <li ng-class="{'selected':false}"><span>Rio de Janeiro</span></li>
+                        <li ng-class="{'selected':false}"><span>Lorem Ipsum</span></li>
                     </ul>
                 </div>
             </div>
