@@ -1,3 +1,5 @@
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.5/bootstrap-editable/js/bootstrap-editable.min.js"></script>
 <div id="header-search-row" class="clearfix" ng-class="{'sombra':data.global.viewMode !== 'list'}">
     <?php $this->part('search/filter-projects') ?>
     <?php $this->part('search/filter-events') ?>
@@ -66,36 +68,39 @@
         </div>
         <!--#search-results-->
         <div id="selected-filters">
-            <a class="tag-selected tag-event" ng-if="showFilters('event') && data.event.keyword !== ''" ng-click="data.event.keyword = ''">{{ data.event.keyword}}</a>
-            <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.keyword !== ''" ng-click="data.agent.keyword = ''">{{ data.agent.keyword}}</a>
-            <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.keyword !== ''" ng-click="data.space.keyword = ''">{{ data.space.keyword}}</a>
-            <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.keyword !== ''" ng-click="data.project.keyword = ''">{{ data.project.keyword}}</a>
+            <div class="responsive-tags">
+                <a class="tag-selected tag-event" ng-if="showFilters('event') && data.event.keyword !== ''" ng-click="data.event.keyword = ''">{{ data.event.keyword}}</a>
+                <a class="tag-selected tag-event" ng-if="showFilters('event')" ng-repeat="linguagemId in data.event.linguagens" ng-click="toggleSelection(data.event.linguagens, linguagemId)">{{ getName(linguagens, linguagemId)}}</a>
+                <a class="tag-selected tag-event" ng-if="showFilters('event')" ng-repeat="clasificacaoId in data.event.classificacaoEtaria" ng-click="toggleSelection(data.event.classificacaoEtaria, clasificacaoId)">{{ getName(classificacoes, clasificacaoId)}}</a>
+                <a class="tag-selected tag-event" ng-if="showFilters('event') && data.event.isVerified" ng-click="toggleVerified('event')"><?php $this->dict('search: verified'); ?></a>
+                <a class="tag-selected tag-event" ng-if="showFilters('event') && showEventDateFilter()" ng-click="cleanEventDateFilters()">{{eventDateFilter()}}</a>
 
-            <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.type !== null" ng-click="data.agent.type = null">{{ getName(types.agent, data.agent.type)}}</a>
-            <a class="tag-selected tag-space" ng-if="showFilters('space')" ng-repeat="typeId in data.space.types" ng-click="toggleSelection(data.space.types, typeId)">{{ getName(types.space, typeId)}}</a>
-            <a class="tag-selected tag-project" ng-if="showFilters('project')" ng-repeat="typeId in data.project.types" ng-click="toggleSelection(data.project.types, typeId)">{{ getName(types.project, typeId)}}</a>
+                <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.keyword !== ''" ng-click="data.agent.keyword = ''">{{ data.agent.keyword}}</a>
+                <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.keyword !== ''" ng-click="data.space.keyword = ''">{{ data.space.keyword}}</a>
+                <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.keyword !== ''" ng-click="data.project.keyword = ''">{{ data.project.keyword}}</a>
 
-            <a class="tag-selected tag-event" ng-if="showFilters('event')" ng-repeat="linguagemId in data.event.linguagens" ng-click="toggleSelection(data.event.linguagens, linguagemId)">{{ getName(linguagens, linguagemId)}}</a>
-            <a class="tag-selected tag-event" ng-if="showFilters('event')" ng-repeat="clasificacaoId in data.event.classificacaoEtaria" ng-click="toggleSelection(data.event.classificacaoEtaria, clasificacaoId)">{{ getName(classificacoes, clasificacaoId)}}</a>
+                <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.type !== null" ng-click="data.agent.type = null">{{ getName(types.agent, data.agent.type)}}</a>
+                <a class="tag-selected tag-space" ng-if="showFilters('space')" ng-repeat="typeId in data.space.types" ng-click="toggleSelection(data.space.types, typeId)">{{ getName(types.space, typeId)}}</a>
+                <a class="tag-selected tag-project" ng-if="showFilters('project')" ng-repeat="typeId in data.project.types" ng-click="toggleSelection(data.project.types, typeId)">{{ getName(types.project, typeId)}}</a>
 
-            <a class="tag-selected tag-agent" ng-if="showFilters('agent')" ng-repeat="areaId in data.agent.areas" ng-click="toggleSelection(data.agent.areas, areaId)">{{ getName(areas, areaId)}}</a>
-            <a class="tag-selected tag-space" ng-if="showFilters('space')" ng-repeat="areaId in data.space.areas" ng-click="toggleSelection(data.space.areas, areaId)">{{ getName(areas, areaId)}}</a>
+                <a class="tag-selected tag-agent" ng-if="showFilters('agent')" ng-repeat="areaId in data.agent.areas" ng-click="toggleSelection(data.agent.areas, areaId)">{{ getName(areas, areaId)}}</a>
+                <a class="tag-selected tag-space" ng-if="showFilters('space')" ng-repeat="areaId in data.space.areas" ng-click="toggleSelection(data.space.areas, areaId)">{{ getName(areas, areaId)}}</a>
 
-            <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.acessibilidade" ng-click="data.space.acessibilidade = !data.space.acessibilidade">acessibilidade</a>
+                <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.acessibilidade" ng-click="data.space.acessibilidade = !data.space.acessibilidade">acessibilidade</a>
 
-            <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.ropen" ng-click="data.project.ropen = !data.project.ropen">inscrições abertas</a>
+                <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.ropen" ng-click="data.project.ropen = !data.project.ropen">inscrições abertas</a>
 
-            <a class="tag-selected tag-event" ng-if="showFilters('event') && data.event.isVerified" ng-click="toggleVerified('event')"><?php $this->dict('search: verified'); ?></a>
-            <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.isVerified" ng-click="toggleVerified('agent')"><?php $this->dict('search: verified'); ?></a>
-            <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.isVerified" ng-click="toggleVerified('space')"><?php $this->dict('search: verified'); ?></a>
-            <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.isVerified" ng-click="toggleVerified('project')"><?php $this->dict('search: verified'); ?></a>
+                <a class="tag-selected tag-agent" ng-if="showFilters('agent') && data.agent.isVerified" ng-click="toggleVerified('agent')"><?php $this->dict('search: verified'); ?></a>
+                <a class="tag-selected tag-space" ng-if="showFilters('space') && data.space.isVerified" ng-click="toggleVerified('space')"><?php $this->dict('search: verified'); ?></a>
+                <a class="tag-selected tag-project" ng-if="showFilters('project') && data.project.isVerified" ng-click="toggleVerified('project')"><?php $this->dict('search: verified'); ?></a>
 
-            <a class="tag-selected tag-event" ng-if="showFilters('event') && showEventDateFilter()" ng-click="cleanEventDateFilters()">{{eventDateFilter()}}</a>
-
-            <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'circle'" ng-click="cleanLocationFilters()">Área Delimitada</a>
-            <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'neighborhood'" ng-click="cleanLocationFilters()">Próximo a mim</a>
-            <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'address'" ng-click="cleanLocationFilters()">{{data.global.locationFilters.address.text}}</a>
-
+                <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'circle'" ng-click="cleanLocationFilters()">Área Delimitada</a>
+                <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'neighborhood'" ng-click="cleanLocationFilters()">Próximo a mim</a>
+                <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'address'" ng-click="cleanLocationFilters()">{{data.global.locationFilters.address.text}}</a>
+                
+            </div>
+            <a class="tag-selected tag-more" ng-if="TODO()">...</a> <!--TODO: ONLY SHOW nif number of tags > 4-->
+            
             <a class="tag-selected tag-clear" ng-if="hasFilter()" ng-click="cleanAllFilters()">Remover todos filtros</a>
         </div>
     </div>

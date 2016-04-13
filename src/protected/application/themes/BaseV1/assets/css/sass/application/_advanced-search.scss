@@ -25,16 +25,17 @@
     padding: 0;
     color: $brand-accent;
     font-size: $font-size-small;
+    /*
     @media screen and (min-width: $screen-desktop) {
         padding: $padding-base 0;
         > div {
             display: block !important;
         }
     }
+    */
     @media print {
         display: none;
     }
-    //** only shown on phones
     header {
         padding: $padding-base;
         line-height: 1rem;
@@ -48,9 +49,6 @@
         }
         .icon-show-advanced-search {
             float: right;
-        }
-        @media screen and (min-width: $screen-desktop) {
-            display: none;
         }
     }
 }
@@ -69,15 +67,14 @@
 }
 //** each filter set has a class .filter
 .filter {
+    //min-height: 100px;
     box-sizing: border-box;
     padding: 0 $padding-base $padding-base;
     line-height: 2rem;
-    @media screen and (min-width: $screen-desktop) {
-        float: left;
-        width: 15%;
-        padding: 0 $padding-base;
-        border-left: 1px dotted $brand-accent;
-    }
+    float: left;
+    width: 15%;
+    padding: 0 $padding-base;
+    border-left: 1px dotted $brand-accent;
     &:first-child {
         border: none;
     }
@@ -111,16 +108,7 @@
         width: 100%;
     }
 } 
-.search-filter--estado {
-    @media screen and (min-width: $screen-desktop) {
-        width: 10%;
-    }
-}
-.search-filter--verified {
-    @media screen and (min-width: $screen-desktop){
-        width: 10%;   
-    }
-}
+
 //** List of filters with select box
 .filter-list {
     margin-bottom: 0;
@@ -160,10 +148,36 @@
         }
     }
 }
-//** Verified button filter set.
-.verified-filter {
-    @media screen and (min-width: $screen-desktop) {
-        float: right;
-        text-align: center;
-    }
+
+//** 3 Column Responsive Layout
+/*  SECTIONS  */
+.section {
+	clear: both;
+	padding: 0px;
+	margin: 0px;
+}
+
+/*  COLUMN SETUP  */
+.col {
+	display: block;
+	float:left;
+	margin: 1% 0 1% 1.6%;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+
+/*  GRID OF THREE  */
+.span_3_of_3 { width: 100%; }
+.span_2_of_3 { width: 66.13%; }
+.span_1_of_3 { width: 32.26%; }
+
+/*  GO FULL WIDTH when not desktop */
+@media only screen and (max-width: $screen-desktop) {
+	.col {  margin: 1% 0 1% 0%; }
+	.span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
 }

@@ -59,3 +59,24 @@
     color: #fff;
     background: $brand-accent;
 }
+
+/* hide tags if number of tags > 4*/
+.responsive-tags a:nth-of-type(1n+5) {
+    display:none;
+}
+.responsive-tags {
+    display:inline;
+}
+.tag-more {
+    cursor: auto;
+    content: "";
+    padding-right: 0.5rem;
+    &:hover {
+        color: $brand-accent;
+        background: #fff;
+        text-decoration: none;
+    }
+    &:after {
+        content: none;
+    }
+}
