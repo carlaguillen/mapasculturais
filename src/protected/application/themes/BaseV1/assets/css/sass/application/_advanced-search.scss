@@ -38,10 +38,12 @@
     }
     header {
         padding: $padding-base;
-        line-height: 1rem;
+        line-height: 1.2rem;
+        height: 1.2rem;
         .icon {
             font-size: $font-size-base;
             font-weight: normal;
+            vertical-align: middle;
         }
         .arrow_left {
             float: left;
@@ -49,6 +51,7 @@
         }
         .icon-show-advanced-search {
             float: right;
+            vertical-align: middle;
         }
     }
 }
@@ -149,12 +152,22 @@
     }
 }
 
-//** 3 Column Responsive Layout
+#filter-elements {
+    display: inline-block;
+    float: right;
+    padding: 0;
+    @media print {
+        display: none;
+    }
+}
+
+//** 3 or 4 Column Responsive Layout
 /*  SECTIONS  */
 .section {
 	clear: both;
 	padding: 0px;
 	margin: 0px;
+        border-top: 1px dotted #000000;
 }
 
 /*  COLUMN SETUP  */
@@ -176,8 +189,14 @@
 .span_2_of_3 { width: 66.13%; }
 .span_1_of_3 { width: 32.26%; }
 
+/*  GRID OF FOUR  */
+.span_4_of_4 { width: 100%; }
+.span_3_of_4 { width: 74.6%; }
+.span_2_of_4 { width: 49.2%; }
+.span_1_of_4 { width: 23.8%; }
+
 /*  GO FULL WIDTH when not desktop */
 @media only screen and (max-width: $screen-desktop) {
 	.col {  margin: 1% 0 1% 0%; }
-	.span_3_of_3, .span_2_of_3, .span_1_of_3 { width: 100%; }
+	.span_3_of_3, .span_2_of_3, .span_1_of_3, .span_1_of_4, .span_2_of_4, .span_3_of_4, .span_4_of_4  { width: 100%; }
 }

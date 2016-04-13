@@ -58,14 +58,17 @@
 .tag-clear {
     color: #fff;
     background: $brand-accent;
+    margin-right: 1rem;
+    margin-bottom: 0;
 }
 
+/* Responsive Content */
+.responsive-tags {
+    display:inline;
+}
 /* hide tags if number of tags > 4*/
 .responsive-tags a:nth-of-type(1n+5) {
     display:none;
-}
-.responsive-tags {
-    display:inline;
 }
 .tag-more {
     cursor: auto;

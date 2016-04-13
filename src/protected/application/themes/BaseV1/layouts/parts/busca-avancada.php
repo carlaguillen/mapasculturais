@@ -96,12 +96,9 @@
 
                 <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'circle'" ng-click="cleanLocationFilters()">Área Delimitada</a>
                 <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'neighborhood'" ng-click="cleanLocationFilters()">Próximo a mim</a>
-                <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'address'" ng-click="cleanLocationFilters()">{{data.global.locationFilters.address.text}}</a>
-                
+                <a class="tag-selected" ng-if="data.global.locationFilters.enabled === 'address'" ng-click="cleanLocationFilters()">{{data.global.locationFilters.address.text}}</a>        
             </div>
-            <a class="tag-selected tag-more" ng-if="TODO()">...</a> <!--TODO: ONLY SHOW nif number of tags > 4-->
-            
-            <a class="tag-selected tag-clear" ng-if="hasFilter()" ng-click="cleanAllFilters()">Remover todos filtros</a>
+            <a class="tag-selected tag-more" ng-if="showTagMore()">...</a> <!--TODO: Add popover with hidden tags -->
         </div>
     </div>
     <!--#header-search-results-->

@@ -199,13 +199,8 @@
         }
 
         $scope.hasFilter = function() {
-            var ctx = {has: false};
-            angular.forEach($scope.data, function(value, key) {
-                if(key === 'global') return;
-                this.has = this.has || !angular.equals(_diffFilter($scope.data[key], skeletonData[key]), {});
-            }, ctx);
-
-            return ctx.has ||
+            var key = $scope.data.global.filterEntity;
+            return !angular.equals(_diffFilter($scope.data[key], skeletonData[key]), {}) ||
                    $scope.data.global.isVerified ||
                    $scope.data.global.locationFilters.enabled !== null;
         };
@@ -217,6 +212,10 @@
             });
             $scope.data.global.isVerified = false;
             $scope.data.global.locationFilters = angular.copy(skeletonData.global.locationFilters);
+        };
+        
+        $scope.showTagMore = function () {
+            return document.getElementsByClassName('responsive-tags')[0].getElementsByClassName('tag-selected').length > 4;
         };
 
         $scope.cleanLocationFilters = function() {

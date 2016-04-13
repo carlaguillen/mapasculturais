@@ -2,7 +2,10 @@
     <header class="clearfix">
         <a href="<?php echo $app->getBaseUrl() ?>" class="icon icon-go-back"></a>
         Eventos
-        <a class="icon icon-show-advanced-search" ng-click="toggleAdvancedFilters()"></a>
+        <div id="filter-elements">
+            <a class="tag-selected tag-clear" ng-show="hasFilter()" ng-click="cleanAllFilters()">Remover todos filtros</a>
+            <a class="icon icon-show-advanced-search" ng-click="toggleAdvancedFilters()"></a>
+        </div>
     </header>
     <div ng-show="!collapsedFilters && !showInfobox()">
         <div class="section group">
